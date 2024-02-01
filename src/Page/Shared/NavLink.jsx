@@ -6,7 +6,7 @@ export const navLink = <>
         className={({ isActive, isPending, isTransitioning }) =>
             [
                 isPending ? "pending" : "",
-                isActive ? "text-[#F7A582] underline" : "",
+                isActive ? "text-yellow-500 underline" : "",
                 isTransitioning ? "transitioning" : "",
             ].join(" ")
         }
@@ -14,27 +14,27 @@ export const navLink = <>
         Home
     </NavLink>
  <NavLink
-        to="/a"
+        to="/menu"
         className={({ isActive, isPending, isTransitioning }) =>
             [
                 isPending ? "pending" : "",
-                isActive ? "text-[#F7A582] underline" : "",
+                isActive ? "text-yellow-500 underline" : "",
                 isTransitioning ? "transitioning" : "",
             ].join(" ")
         }
     >
-        Home
+       Our Menu
     </NavLink>
  <NavLink
-        to="/b"
+        to="/about"
         className={({ isActive, isPending, isTransitioning }) =>
             [
                 isPending ? "pending" : "",
-                isActive ? "text-[#F7A582] underline" : "",
+                isActive ? "text-yellow-500 underline" : "",
                 isTransitioning ? "transitioning" : "",
             ].join(" ")
         }
     >
-        Home
+        About
     </NavLink>
 </>

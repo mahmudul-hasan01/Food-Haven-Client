@@ -5,8 +5,8 @@ const Footer = () => {
 
             <footer className="footer p-10 bg-neutral text-neutral-content">
                 <aside>
-                    <img className="w-20 h-20 rounded-full" src="../../../public/chef-hat-with-spoon-fork_602006-247.avif" alt="" />
-                    <p>Food Haven</p>
+                    <img className="w-20 h-20 rounded-full mx-auto" src="../../../public/chef-hat-with-spoon-fork_602006-247.avif" alt="" />
+                    <p className="text-3xl font-bold">Food <span className="text-red-600">Haven</span></p>
                 </aside>
                 <nav>
                     <h6 className="footer-title">Social</h6>
