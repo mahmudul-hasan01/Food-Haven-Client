@@ -24,7 +24,7 @@ const Menu = () => {
             <Cover img={image} title={'Our menu'}></Cover>
             <SectionTitle heading={"tody's offer"} subHeading={"Don't miss"}></SectionTitle>
             <MenuCategory items={offered}></MenuCategory>
-            <MenuCategory items={dessert} title={'Dessert'} coverImg={image1}></MenuCategory>
+            <MenuCategory items={dessert} title={'dessert'} coverImg={image1}></MenuCategory>
             <MenuCategory items={pizza} title={'pizza'} coverImg={image2}></MenuCategory>
             <MenuCategory items={salad} title={'salad'} coverImg={image3}></MenuCategory>
             <MenuCategory items={soup} title={'soup'} coverImg={image4}></MenuCategory>

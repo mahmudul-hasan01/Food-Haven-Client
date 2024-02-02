@@ -26,7 +26,7 @@ export const navLink = <>
        Our Menu
     </NavLink>
  <NavLink
-        to="/order"
+        to="/order/salad"
         className={({ isActive, isPending, isTransitioning }) =>
             [
                 isPending ? "pending" : "",
