@@ -26,7 +26,7 @@ export const navLink = <>
        Our Menu
     </NavLink>
  <NavLink
-        to="/about"
+        to="/order"
         className={({ isActive, isPending, isTransitioning }) =>
             [
                 isPending ? "pending" : "",
@@ -35,6 +35,6 @@ export const navLink = <>
             ].join(" ")
         }
     >
-        About
+        Order Food
     </NavLink>
 </>
