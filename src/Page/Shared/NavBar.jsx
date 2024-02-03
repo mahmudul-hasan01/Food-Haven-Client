@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import image from '../../../public/chef-hat-with-spoon-fork_602006-247.avif'
 import { navLink } from './NavLink';
 
@@ -10,7 +11,7 @@ const NavBar = () => {
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                     </div>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 gap-3">
-                       {navLink}
+                        {navLink}
                     </ul>
                 </div>
                 <img className='w-16 h-16 rounded-full mr-4' src={image} alt="" />
@@ -21,8 +22,19 @@ const NavBar = () => {
                     {navLink}
                 </ul>
             </div>
-            <div className="navbar-end">
-                <a className="btn">Button</a>
+            <div className="navbar-end mr-6">
+                <NavLink
+                    to="/login"
+                    className={({ isActive, isPending, isTransitioning }) =>
+                        [
+                            isPending ? "pending" : "",
+                            isActive ? "text-yellow-500 underline" : "",
+                            isTransitioning ? "transitioning" : "",
+                        ].join(" ")
+                    }
+                >
+                    Login
+                </NavLink>
             </div>
         </div>
     );

@@ -5,6 +5,7 @@ import {
   } from "react-router-dom";
 import Menu from "./Page/Menu/Menu";
 import Order from "./Page/Order/Order";
+import Login from "./Page/Login/Login";
 
 
 export const router = createBrowserRouter([
@@ -23,7 +24,11 @@ export const router = createBrowserRouter([
             {
                 path: 'order/:category',
                 element: <Order></Order>
-            }
+            },
+            {
+                path: 'login',
+                element: <Login></Login>
+            },
         ]
     },
 ]);
