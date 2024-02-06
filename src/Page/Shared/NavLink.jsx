@@ -1,7 +1,7 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export const navLink = <>
- <NavLink
+    <NavLink
         to="/"
         className={({ isActive, isPending, isTransitioning }) =>
             [
@@ -13,7 +13,7 @@ export const navLink = <>
     >
         Home
     </NavLink>
- <NavLink
+    <NavLink
         to="/menu"
         className={({ isActive, isPending, isTransitioning }) =>
             [
@@ -23,9 +23,9 @@ export const navLink = <>
             ].join(" ")
         }
     >
-       Our Menu
+        Our Menu
     </NavLink>
- <NavLink
+    <NavLink
         to="/order/salad"
         className={({ isActive, isPending, isTransitioning }) =>
             [
@@ -37,5 +37,6 @@ export const navLink = <>
     >
         Order Food
     </NavLink>
- 
+   
+
 </>

@@ -1,18 +1,25 @@
 import { Helmet } from "react-helmet-async";
 import useAuth from "../../Hooks/useAuth";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
 
+    const navigate = useNavigate()
+    const location = useLocation()
     const {login} = useAuth()
     
+    const from = location?.state?.from?.pathname || '/'
+
     const handleSubmit = (e) => {
         e.preventDefault()
         const form = e.target
         const email = form.email.value
         const password = form.password.value
         login(email,password)
-        .then( () => {})
+        .then( () => {
+            navigate(from,{replace:true})
+        })
+
     }
 
     return (
@@ -46,7 +53,7 @@ const Login = () => {
                             <button className="btn btn-primary">Login</button>
                         </div>
                     </form>
-                    <p><Link className="underline text-blue-600" to='/register'>Register</Link></p>
+                    <p>Already have account <Link className="underline text-blue-600" to='/register'>Register</Link></p>
                 </div>
             </div>
         </div>
