@@ -27,7 +27,7 @@ const NavBar = () => {
                     </div>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 text-black rounded-box w-52 gap-3">
                         {navLink}
-                    <Link to='/'>
+                    <Link to='/dashboard/cart'>
                         <button className="btn btn-sm">
                             <FaShoppingCart className='text-xl' />
                             <div className="badge badge-secondary">+{cart?.length}</div>
@@ -42,7 +42,7 @@ const NavBar = () => {
                 <ul className="menu menu-horizontal px-1 gap-5">
                     {navLink}
                 </ul>
-                <Link to='/'>
+                <Link to='/dashboard/cart'>
                     <button className="btn btn-sm ml-3">
                         <FaShoppingCart className='text-xl' />
                         <div className="badge badge-secondary">+{cart?.length}</div>
