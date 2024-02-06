@@ -5,21 +5,18 @@ import useAuth from '../../Hooks/useAuth';
 import { FaShoppingCart } from "react-icons/fa";
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useState } from 'react';
+import useCart from '../../Hooks/useCart';
 
 const NavBar = () => {
 
-    const axiosSecure = useAxiosSecure()
-    const [carts,setCarts] =useState([])
+    const {cart} =useCart()
+
     const { user, logOut } = useAuth()
+    
     const HandlelogOut = () => {
         logOut()
             .then(() => { })
     }
-
-    axiosSecure.get('/carts')
-    .then(res => {
-        setCarts(res?.data)
-    })
 
     return (
         <div className="navbar fixed z-50 max-w-screen-xl text-white bg-black/50">
@@ -33,7 +30,7 @@ const NavBar = () => {
                     <Link to='/'>
                         <button className="btn btn-sm">
                             <FaShoppingCart className='text-xl' />
-                            <div className="badge badge-secondary">+{carts?.length}</div>
+                            <div className="badge badge-secondary">+{cart?.length}</div>
                         </button>
                     </Link>
                     </ul>
@@ -48,7 +45,7 @@ const NavBar = () => {
                 <Link to='/'>
                     <button className="btn btn-sm ml-3">
                         <FaShoppingCart className='text-xl' />
-                        <div className="badge badge-secondary">+{carts?.length}</div>
+                        <div className="badge badge-secondary">+{cart?.length}</div>
                     </button>
                 </Link>
             </div>
