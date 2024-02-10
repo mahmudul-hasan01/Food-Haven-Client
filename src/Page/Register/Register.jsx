@@ -1,17 +1,19 @@
 import { Helmet } from "react-helmet-async";
 import useAuth from "../../Hooks/useAuth";
 import { useForm } from "react-hook-form"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 import toast from 'react-hot-toast';
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Register = () => {
 
+    const axiosPublic = useAxiosPublic()
+    const navigate = useNavigate()
     const { signUp, updateUserProfile } = useAuth()
     const {
         register,
         handleSubmit,
-        watch,
         reset,
         formState: { errors },
     } = useForm()
@@ -20,7 +22,19 @@ const Register = () => {
 
         signUp(data?.email, data?.password)
             .then(() => {
-                toast.success('SignUp Successfully')
+                const userInfo = {
+                    name: data?.name,
+                    email: data?.email,
+
+                }
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        if (res.data.insertedId) {
+                            toast.success('SignUp Successfully')
+                            reset()
+                            navigate('/')
+                        }
+                    })
             })
 
         // const formData = new FormData()
