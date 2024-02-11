@@ -15,10 +15,16 @@ const AllUsers = () => {
         }
     })
 
+    const handleMakeAdmin =async (id) => {
+        await axiosSecure.patch(`/users/admin/${id}`)
+        toast.success('Updated Successfully')
+        refetch()
+    }
+
     const handleDelete = async (id) => {
         await axiosSecure.delete(`/users/${id}`)
-        refetch()
         toast.success('Deleted Successfully')
+        refetch()
     }
 
     return (
@@ -47,7 +53,12 @@ const AllUsers = () => {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>
-                                    <button className="btn btn-md text-white bg-orange-500" ><FaUsers className='text-xl' /></button>
+                                    {
+                                        user.role === 'admin' ?
+                                       'Admin'
+                                        :
+                                        <button className="btn btn-md text-white bg-orange-500" onClick={() => handleMakeAdmin(user?._id)}><FaUsers className='text-xl' /></button>
+                                    }
                                 </td>
                                 <td>
                                     <button className="btn btn-md text-white bg-red-500" onClick={() => handleDelete(user?._id)}><MdDeleteForever className="text-xl"/></button>
