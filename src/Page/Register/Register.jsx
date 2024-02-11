@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 import toast from 'react-hot-toast';
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import GoogleLogin from "../../Components/SocialLogin/GoogleLogin";
 
 const Register = () => {
 
@@ -96,7 +97,11 @@ const Register = () => {
                             <button className="btn btn-primary">Register</button>
                         </div>
                     </form>
-                    <p>Create new account <Link className="underline py-5 text-center text-blue-600" to='/login'>Login</Link></p>
+                    <div className="divider">OR</div>
+                    <div className="p-8 pt-0 space-y-6">
+                        <GoogleLogin></GoogleLogin>
+                        <p>Create new account? <Link className="underline py-5 text-center text-blue-600" to='/login'>Login</Link></p>
+                    </div>
                 </div>
             </div>
         </div>

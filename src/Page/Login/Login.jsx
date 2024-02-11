@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import useAuth from "../../Hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import GoogleLogin from "../../Components/SocialLogin/GoogleLogin";
 
 const Login = () => {
 
@@ -53,7 +54,12 @@ const Login = () => {
                             <button className="btn btn-primary">Login</button>
                         </div>
                     </form>
-                    <p>Already have account <Link className="underline text-blue-600" to='/register'>Register</Link></p>
+                    <div className="divider">OR</div>
+                    <div className="p-8 pt-0 space-y-6">
+                        <GoogleLogin></GoogleLogin>
+                        <p>Already have account? please <Link className="underline text-blue-600" to='/register'>Register</Link></p>
+                    </div>
+                    
                 </div>
             </div>
         </div>
