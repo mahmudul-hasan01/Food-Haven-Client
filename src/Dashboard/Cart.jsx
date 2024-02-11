@@ -2,6 +2,7 @@ import React from 'react';
 import useCart from '../Hooks/useCart';
 import { MdDeleteForever } from "react-icons/md";
 import useAxiosSecure from '../Hooks/useAxiosSecure';
+import toast from 'react-hot-toast';
 
 const Cart = () => {
     const { cart, refetch } = useCart()
@@ -11,7 +12,7 @@ const Cart = () => {
     const handleDelete = async (id) => {
         await axiosSecure.delete(`/carts/${id}`)
         refetch()
-
+        toast.success('Deleted Successfully')
     }
     return (
         <div>
@@ -52,7 +53,7 @@ const Cart = () => {
                                 </td>
                                 <td className="font-bold">$ {item?.price}</td>
                                 <th>
-                                    <button onClick={() => handleDelete(item?._id)}><MdDeleteForever className='text-3xl' /></button>
+                                    <button onClick={() => handleDelete(item?._id)}><MdDeleteForever className='text-3xl hover:text-red-600' /></button>
                                 </th>
                             </tr>)
                         }

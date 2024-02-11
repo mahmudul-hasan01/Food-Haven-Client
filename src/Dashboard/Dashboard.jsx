@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { FaBookBookmark, FaCartShopping, FaEnvelope, FaUsers, FaUtensils } from "react-icons/fa6";
-import { FaAddressCard, FaCalendar, FaHome, FaList } from "react-icons/fa";
+import { FaAddressCard, FaCalendar, FaHome, FaList, FaSearch } from "react-icons/fa";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
 import useCart from "../Hooks/useCart";
 
@@ -31,7 +31,7 @@ const Dashboard = () => {
                     }
                     <div className="divider"></div>
                     <li><NavLink to='/'><FaHome /> Home</NavLink></li>
-                    <li><NavLink to='/menu'><MdOutlineRestaurantMenu /> Menu</NavLink></li>
+                    <li><NavLink to='/menu'><FaSearch /> Menu</NavLink></li>
                     <li><NavLink to='/contact'><FaEnvelope /> Contact</NavLink></li>
                 </ul>
             </div>
