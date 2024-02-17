@@ -12,12 +12,7 @@ const Register = () => {
     const axiosPublic = useAxiosPublic()
     const navigate = useNavigate()
     const { signUp, updateUserProfile } = useAuth()
-    const {
-        register,
-        handleSubmit,
-        reset,
-        formState: { errors },
-    } = useForm()
+    const { register,handleSubmit,reset, formState: { errors },} = useForm()
 
     const onSubmit = async (data) => {
 
