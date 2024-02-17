@@ -21,6 +21,20 @@ const AddItems = () => {
                 'content-type' : 'multipart/form-data'
             }
         })
+        if(res.data.success){
+            const menuItem = {
+                name: data?.name,
+                category: data?.category,
+                price: parseFloat(data?.price),
+                recipe: data?.recipe,
+                image: res?.data?.data?.display_url
+            }
+            const menuRes = await axiosSecure.post('/menu', menuItem)
+            if(menuRes.data.insertedId){
+                reset()
+                toast.success(`${data.neme} add successfully`)
+            }
+        }
     }
     return (
         <div>
