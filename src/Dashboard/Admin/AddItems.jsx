@@ -1,14 +1,26 @@
 import { useForm } from "react-hook-form";
 import SectionTitle from "../../Components/SectionTitle/SectionTitle";
 import { FaUtensils } from "react-icons/fa6";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 
 const AddItems = () => {
 
+    const image_hosting_api = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`
+    const axiosPublic = useAxiosPublic()
+    const axiosSecure = useAxiosSecure()
+
     const { register, handleSubmit, reset, formState: { errors }, } = useForm()
 
     const onSubmit = async (data) => {
-        console.log(data);
+        const imageFile = {image: data.image[0]}
+        const res = await axiosPublic.post(image_hosting_api,imageFile,{
+            headers: {
+                'content-type' : 'multipart/form-data'
+            }
+        })
     }
     return (
         <div>
@@ -32,11 +44,11 @@ const AddItems = () => {
                             </div>
                             <select {...register("category")} defaultValue={'default'} className="select select-bordered w-full ">
                                 <option disabled value={'default'}>Select a category</option>
-                                <option value="Salad">Salad</option>
-                                <option value="Pizza">Pizza</option>
-                                <option value="Soup">Soup</option>
-                                <option value="Dessert">Dessert</option>
-                                <option value="Drinks">Drinks</option>
+                                <option value="salad">Salad</option>
+                                <option value="pizza">Pizza</option>
+                                <option value="soup">Soup</option>
+                                <option value="dessert">Dessert</option>
+                                <option value="drinks">Drinks</option>
                             </select>
 
                         </label>
