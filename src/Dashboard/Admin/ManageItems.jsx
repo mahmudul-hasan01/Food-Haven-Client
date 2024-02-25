@@ -2,15 +2,22 @@ import { MdDeleteForever } from "react-icons/md";
 import SectionTitle from "../../Components/SectionTitle/SectionTitle";
 import useMenu from "../../Hooks/useMenu";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { FaEdit } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const ManageItems = () => {
-    const [menuData, loading] = useMenu()
+    const [menuData, loading, refetch] = useMenu()
     const axiosSecure = useAxiosSecure()
 
     const handleDelete = async (id) => {
-        await axiosSecure.delete(`/menu/${id}`)
-        toast.success('Deleted Successfully')
-        // refetch()
+      const res = await axiosSecure.delete(`/menu/${id}`)
+      if(res.data.deletedCount > 0){
+          toast.success('Deleted Successfully')
+      }
+        refetch()
+    }
+    const handlUpdate =() => {
+
     }
 
     return (
@@ -52,7 +59,7 @@ const ManageItems = () => {
                                     </td>
                                     <td>{item?.price}</td>
                                     <td>
-                                        <button className="btn btn-ghost btn-xs">details</button>
+                                    <button className="btn btn-md text-white bg-orange-500" onClick={() => handlUpdate(item?._id)}><FaEdit className='text-xl' /></button>
                                     </td>
                                     <td>
                                     <button className="btn btn-md text-white bg-red-500" onClick={() => handleDelete(item?._id)}><MdDeleteForever className="text-xl"/></button>
