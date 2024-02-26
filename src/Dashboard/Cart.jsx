@@ -3,6 +3,7 @@ import useCart from '../Hooks/useCart';
 import { MdDeleteForever } from "react-icons/md";
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
     const { cart, refetch } = useCart()
@@ -19,7 +20,14 @@ const Cart = () => {
             <div className="flex justify-between">
                 <h1 className="uppercase text-3xl">total order: {cart.length}</h1>
                 <h1 className="uppercase  text-3xl">total price: {totalPrice}</h1>
-                <button className='btn btn-info'>Pay</button>
+               {
+                cart.length ?
+                 <Link to={'/dashboard/payment'}> 
+                 <button className='btn btn-info'>Pay</button>
+                 </Link>
+                 :
+                 <button disabled className='btn btn-info'>Pay</button>
+               }
             </div>
             <div className="overflow-x-auto">
                 <table className="table">
