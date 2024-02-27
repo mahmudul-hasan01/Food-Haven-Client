@@ -1,11 +1,27 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
+import useCart from "../Hooks/useCart";
+import useAuth from "../Hooks/useAuth";
 
 const CheckoutForm = () => {
 
+    const [clientSecret, setcClientSecret] = useState('')
+    const {user} = useAuth()
     const stripe = useStripe()
     const elements = useElements()
+    const axiosSecure = useAxiosSecure()
+    const {cart} = useCart()
+    const totalPrice = cart.reduce((total, item) => total + item.price, 0)
+
+    useEffect(() => {
+        axiosSecure.post(`/payment-intent`, {price: totalPrice})
+        .then(res => {
+            console.log(res?.data?.clientSecret);
+            setcClientSecret(res?.data?.clientSecret)
+        })
+    } ,[])
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -24,8 +40,25 @@ const CheckoutForm = () => {
             toast.error(error.message)
             
         }else{
-            toast.success("Payment Id", paymentMethod?.id)
-
+            // toast.success("Payment Done", paymentMethod?.id)
+            console.log(paymentMethod);
+        }
+        const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card : card,
+                billing_details: {
+                    email: user?.email || 'anonymous',
+                    name: user?.displayName || 'anonymous'
+                }
+            }
+        })
+        if(confirmError){
+            console.log(confirmError);
+        }else{
+            console.log(paymentIntent);
+            if(paymentIntent.status === 'succeeded'){
+                toast.success( paymentIntent?.id)
+            }
         }
     }
     
@@ -48,7 +81,7 @@ const CheckoutForm = () => {
                     },
                 }}
             />
-            <button className="btn btn-neutral btn-md mt-8" type="submit" disabled={!stripe}>
+            <button className="btn btn-neutral btn-md mt-8" type="submit" disabled={!stripe || !clientSecret}>
                 Pay
             </button>
         </form>
