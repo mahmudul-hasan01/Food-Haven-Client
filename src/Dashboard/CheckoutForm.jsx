@@ -8,61 +8,77 @@ import useAuth from "../Hooks/useAuth";
 const CheckoutForm = () => {
 
     const [clientSecret, setcClientSecret] = useState('')
-    const {user} = useAuth()
+    const { user } = useAuth()
     const stripe = useStripe()
     const elements = useElements()
     const axiosSecure = useAxiosSecure()
-    const {cart} = useCart()
+    const { cart, refetch } = useCart()
     const totalPrice = cart.reduce((total, item) => total + item.price, 0)
 
     useEffect(() => {
-        axiosSecure.post(`/payment-intent`, {price: totalPrice})
-        .then(res => {
-            console.log(res?.data?.clientSecret);
-            setcClientSecret(res?.data?.clientSecret)
-        })
-    } ,[])
+        if (totalPrice > 0) {
+            axiosSecure.post(`/payment-intent`, { price: totalPrice })
+                .then(res => {
+                    console.log(res?.data?.clientSecret);
+                    setcClientSecret(res?.data?.clientSecret)
+                })
+        }
+    }, [])
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if(!stripe || !elements){
+        if (!stripe || !elements) {
             return
         }
         const card = elements.getElement(CardElement)
-        if(card === null) {
+        if (card === null) {
             return
         }
-        const {error, paymentMethod} = await stripe.createPaymentMethod({
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
             card
         })
-        if(error){
+        if (error) {
             toast.error(error.message)
-            
-        }else{
+
+        } else {
             // toast.success("Payment Done", paymentMethod?.id)
             console.log(paymentMethod);
         }
         const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
             payment_method: {
-                card : card,
+                card: card,
                 billing_details: {
                     email: user?.email || 'anonymous',
                     name: user?.displayName || 'anonymous'
                 }
             }
         })
-        if(confirmError){
+        if (confirmError) {
             console.log(confirmError);
-        }else{
+        } else {
             console.log(paymentIntent);
-            if(paymentIntent.status === 'succeeded'){
-                toast.success( paymentIntent?.id)
+            if (paymentIntent.status === 'succeeded') {
+                toast.success(paymentIntent?.id)
+                const payment = {
+                    email: user?.email,
+                    price: totalPrice,
+                    transactionId: paymentIntent.id,
+                    date: new Date(),
+                    cartIds: cart.map(item => item._id),
+                    menuItemIds: cart.map(item => item.menuId),
+                    status: 'pending'
+                }
+                const res = await axiosSecure.post('/payment', payment)
+                refetch()
+                if(res?.data?.paymentResult.insertedId){
+                    toast.success('Payment Successfully')
+                }
             }
         }
     }
-    
-    
+
+
     return (
         <form onSubmit={handleSubmit}>
             <CardElement
