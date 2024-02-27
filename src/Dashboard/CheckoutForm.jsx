@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import useCart from "../Hooks/useCart";
 import useAuth from "../Hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {
 
@@ -13,6 +14,7 @@ const CheckoutForm = () => {
     const elements = useElements()
     const axiosSecure = useAxiosSecure()
     const { cart, refetch } = useCart()
+    const navigate = useNavigate()
     const totalPrice = cart.reduce((total, item) => total + item.price, 0)
 
     useEffect(() => {
@@ -71,8 +73,9 @@ const CheckoutForm = () => {
                 }
                 const res = await axiosSecure.post('/payment', payment)
                 refetch()
-                if(res?.data?.paymentResult.insertedId){
+                if (res?.data?.paymentResult.insertedId) {
                     toast.success('Payment Successfully')
+                    navigate('/dashboard/paymentHistory')
                 }
             }
         }
