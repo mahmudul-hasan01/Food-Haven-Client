@@ -37,6 +37,5 @@ export const navLink = <>
     >
         Order Food
     </NavLink>
-   
 
 </>

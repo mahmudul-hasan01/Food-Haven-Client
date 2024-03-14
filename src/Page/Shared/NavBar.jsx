@@ -6,13 +6,14 @@ import { FaShoppingCart } from "react-icons/fa";
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useState } from 'react';
 import useCart from '../../Hooks/useCart';
+import useAdmin from '../../Hooks/useAdmin';
 
 const NavBar = () => {
 
-    const {cart} =useCart()
-
+    const { cart } = useCart()
+    const [isAdmin] = useAdmin()
     const { user, logOut } = useAuth()
-    
+
     const HandlelogOut = () => {
         logOut()
             .then(() => { })
@@ -27,12 +28,42 @@ const NavBar = () => {
                     </div>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 text-black rounded-box w-52 gap-3">
                         {navLink}
-                    <Link to='/dashboard/cart'>
-                        <button className="btn btn-sm">
-                            <FaShoppingCart className='text-xl' />
-                            <div className="badge badge-secondary">+{cart?.length}</div>
-                        </button>
-                    </Link>
+                        {/* Secret */}
+                        {/* Admin */}
+                        {user && isAdmin && <NavLink
+                            to="/Secret"
+                            className={({ isActive, isPending, isTransitioning }) =>
+                                [
+                                    isPending ? "pending" : "",
+                                    isActive ? "text-yellow-500 underline" : "",
+                                    isTransitioning ? "transitioning" : "",
+                                ].join(" ")
+                            }
+                        >
+                            Secret
+                        </NavLink>
+                        }
+                        {/* User */}
+                        {user && !isAdmin && <NavLink
+                            to="/Secret"
+                            className={({ isActive, isPending, isTransitioning }) =>
+                                [
+                                    isPending ? "pending" : "",
+                                    isActive ? "text-yellow-500 underline" : "",
+                                    isTransitioning ? "transitioning" : "",
+                                ].join(" ")
+                            }
+                        >
+                            Secret
+                        </NavLink>
+                        }
+                        {/* Dashboard */}
+                        <Link to='/dashboard/cart'>
+                            <button className="btn btn-sm">
+                                <FaShoppingCart className='text-xl' />
+                                <div className="badge badge-secondary">+{cart?.length}</div>
+                            </button>
+                        </Link>
                     </ul>
                 </div>
                 <img className='w-16 h-16 rounded-full mr-4' src={image} alt="" />
@@ -42,6 +73,38 @@ const NavBar = () => {
                 <ul className="menu menu-horizontal px-1 gap-5">
                     {navLink}
                 </ul>
+                {/* Secret */}
+                {/* Admin */}
+                <div className='ml-4'>
+                    {user && isAdmin && <NavLink
+                        to="/Secret"
+                        className={({ isActive, isPending, isTransitioning }) =>
+                            [
+                                isPending ? "pending" : "",
+                                isActive ? "text-yellow-500 underline" : "",
+                                isTransitioning ? "transitioning" : "",
+                            ].join(" ")
+                        }
+                    >
+                        Secret
+                    </NavLink>
+                    }
+                    {/* User */}
+                    {user && !isAdmin && <NavLink
+                        to="/Secret"
+                        className={({ isActive, isPending, isTransitioning }) =>
+                            [
+                                isPending ? "pending" : "",
+                                isActive ? "text-yellow-500 underline" : "",
+                                isTransitioning ? "transitioning" : "",
+                            ].join(" ")
+                        }
+                    >
+                        Secret
+                    </NavLink>
+                    }
+                </div>
+                {/* Dashboard */}
                 <Link to='/dashboard/cart'>
                     <button className="btn btn-sm ml-3">
                         <FaShoppingCart className='text-xl' />
