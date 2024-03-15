@@ -21,7 +21,6 @@ const CheckoutForm = () => {
         if (totalPrice > 0) {
             axiosSecure.post(`/payment-intent`, { price: totalPrice })
                 .then(res => {
-                    console.log(res?.data?.clientSecret);
                     setcClientSecret(res?.data?.clientSecret)
                 })
         }

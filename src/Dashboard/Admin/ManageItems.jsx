@@ -17,9 +17,6 @@ const ManageItems = () => {
         }
         refetch()
     }
-    // const handlUpdate = () => {
-
-    // }
 
     return (
         <div>
